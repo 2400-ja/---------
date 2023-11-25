@@ -15,7 +15,7 @@ def Bxy(S,x,y,X,u,n):
         return (n,n)
     if x != X and y == u+1:
         return (H(S,x,y),n)
-    return (H(S,x,y),I(x,y)) 
+    return (H(S,x,y),I(S,x,y)) 
 
 def expand(S, n):
     #特別ルール : [n] = n
@@ -40,9 +40,9 @@ def expand(S, n):
     #良い部分
     G = [S[x] for x in range(r)]
 
-    return (G+B*(n+1),n)
+    return (G+B*(n+1),n+1)
 
 print(
-    expand([[(1,0)]], 3)
+    expand([[(2,2),(0,0)]], 3)
     ,sep="\n"
     )
