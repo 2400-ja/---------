@@ -26,20 +26,23 @@ def expand(S, n):
 
     #一般ルール
     #非零最下箱の高さ    
-    u = max([y if H(S,X,y) != 0 else 0 for y in range(len(S[X]))])
+    u = max([y if H(S,X,y) != 0 else -1 for y in range(len(S[X]))])
 
-    if u == 0:
+    if u == -1:
         return (S[0:-1], n+1)
 
     #仕切り
-    r = max([x if I(S,x,u) < I(S,X,u) else 0 for x in range(X)])
+    r = max([x if I(S,x,u) < I(S,X,u) else -1 for x in range(X)]+[0])
 
     #悪い部分
-    B = [[Bxy(S,x,y,X,u,n) for y in range(len(S[x]))] for x in range(r+1,X+1)]
+    B = [[Bxy(S,x,y,X,u,n) for y in range(len(S[x]))] for x in range(r,X+1)]
 
     #良い部分
-    G = [S[x] for x in range(r+1)]
+    G = [S[x] for x in range(r)]
 
     return (G+B*(n+1),n)
 
-print(expand([[(1,1),(2,2)],[(0,0)]], 3))
+print(
+    expand([[(1,0)]], 3)
+    ,sep="\n"
+    )
